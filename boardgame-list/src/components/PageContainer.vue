@@ -19,10 +19,17 @@
             </md-list-item>
           </router-link>
 
-          <router-link tag="a" :to="{ name: 'tasks' }">
+          <router-link tag="a" :to="{ name: 'boardgames' }">
             <md-list-item>
-              <md-icon>check_box</md-icon>
+              <md-icon>casino</md-icon>
               <span class="md-list-item-text">Jogos</span>
+            </md-list-item>
+          </router-link>
+
+          <router-link tag="a" :to="{ name: 'addboardgame' }">
+            <md-list-item>
+              <md-icon>add_box</md-icon>
+              <span class="md-list-item-text">Adicionar Jogo</span>
             </md-list-item>
           </router-link>
 

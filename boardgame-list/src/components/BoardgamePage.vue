@@ -1,14 +1,13 @@
 <template>
   <div>
-    <!-- <AddTask /> -->
+    <!-- <AddBoardgame /> -->
     <h1>Boardgames</h1>
+    <router-link tag="a" :to="{ name: 'addboardgame' }">
+      <md-button v-on:click="addBoardgame()" class="md-raised md-primary">Adicionar novo jogo</md-button>
+    </router-link>
     <div class="boardgames">
       <div class="boardgame" v-for="boardgame in allBoardgames" :key="boardgame.gameId">
         {{boardgame.name}}
-        <!-- <router-link tag="a" :to="{ name: 'boardgame-details', params: { id: boardgame.gameId } }"></router-link> -->
-        <!-- <md-button v-on:click="deleteTask(boardgame.id)">
-          <md-icon>delete</md-icon>
-        </md-button>-->
         <div class="img">
           <img :src="boardgame.image" />
         </div>
@@ -24,6 +23,17 @@
           <span>Duração em minutos:</span>
           {{ boardgame.playingTime }}
         </div>
+        <router-link
+          tag="a"
+          :to="{ name: 'boardgame-details', params: { gameId: boardgame.gameId } }"
+        >
+          <md-button>
+            <md-icon>description</md-icon>
+          </md-button>
+        </router-link>
+        <md-button v-on:click="deleteBoardgame(boardgame.gameId)">
+          <md-icon>delete</md-icon>
+        </md-button>
       </div>
     </div>
     <router-view></router-view>
@@ -32,12 +42,12 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-// import AddTask from "./AddTask.vue";
+// import AddBoardgame from "./AddBoardgame.vue";
 export default {
   name: "BoardgamesPage",
-  //   components: { AddTask },
+  //   components: {  },
   methods: {
-    ...mapActions(["getBoardgames"]),
+    ...mapActions(["getBoardgames", "deleteBoardgame", "addBoardgame"]),
     viewDetails() {}
   },
   computed: mapGetters(["allBoardgames"]),
@@ -63,10 +73,5 @@ export default {
   text-align: center;
   position: relative;
   cursor: pointer;
-}
-
-.img {
-  width: 50%;
-  height: 50%;
 }
 </style>
