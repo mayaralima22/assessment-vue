@@ -7,7 +7,7 @@ const state = {
 };
 const getters = {
     allBoardgames: state => state.boardgames,
-    boardgamesById: (state) => (gameId) => (state.boardgames.filter(t => t.gameId === gameId))[0],
+    boardgameById: (state) => (gameId) => (state.boardgames.filter(t => t.gameId === gameId))[0],
 };
 const actions = {
     getBoardgames({ commit }) {
@@ -16,37 +16,36 @@ const actions = {
             commit('setBoardgames', response.data.filter((bg, i) => i % 5 === 0));
         });
     },
-    addBoardgame({ commit }, newName, newImage, newMinPlayers, newMaxPlayers, newPlayingTime) {
-        const response = {
+    addBoardgame({ commit }, { name, image, minPlayers, maxPlayers, playingTime }) {
+        const newBG = {
             gameId: uuid(),
-            name: newName,
-            image: newImage,
-            minPlayers: newMinPlayers,
-            maxPlayers: newMaxPlayers,
-            playingTime: newPlayingTime,
+            name,
+            image,
+            minPlayers: parseInt(minPlayers),
+            maxPlayers: parseInt(maxPlayers),
+            playingTime: parseInt(playingTime),
         };
-        commit('pushBoardgames', response);
+        commit('pushBoardgame', newBG);
     },
     deleteBoardgame({ commit }, gameId) {
         commit('removeBoardgames', gameId);
     },
-    // updateTask({ commit }, updatedBoardgame) {
-    //     commit("updateBoardgame", updatedBoardgame);
-    // }
+    updateBoardgame({ commit }, updatedBoardgame) {
+        commit("updateBoardgame", updatedBoardgame);
+    }
 };
 
 const mutations = {
     setBoardgames: (state, boardgames) => (state.boardgames = boardgames),
-    pushBoardgames: (state, boardgames) => state.boardgames.unshift(boardgames),
+    pushBoardgame: (state, boardgame) => state.boardgames.unshift(boardgame),
     removeBoardgames: (state, gameId) =>
         (state.boardgames = state.boardgames.filter(boardgame => boardgame.gameId !== gameId)),
-    // updateBoardgame: (state, updatedTask) => {
-    //     const index = state.boardgames.findIndex(boardgame => boardgame.id === updatedTask.id);
-
-    //     if (index !== -1) {
-    //         state.boardgames.splice(index, 1, updatedTask);
-    //     }
-    // }
+    updateBoardgame: (state, updatedBoardgame) => {
+        const index = state.boardgames.findIndex(boardgame => boardgame.gameId === updatedBoardgame.gameId);
+        if (index !== -1) {
+            return state.boardgames.splice(index, 1, updatedBoardgame);
+        }
+    }
 };
 
 export default {

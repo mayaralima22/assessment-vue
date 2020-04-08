@@ -13,30 +13,25 @@
 
         <md-list>
           <router-link tag="a" :to="{ name: 'home' }">
-            <md-list-item>
+            <md-list-item @click="menuVisible = false">
               <md-icon>home</md-icon>
               <span class="md-list-item-text">Home</span>
             </md-list-item>
           </router-link>
 
           <router-link tag="a" :to="{ name: 'boardgames' }">
-            <md-list-item>
+            <md-list-item @click="menuVisible = false">
               <md-icon>casino</md-icon>
               <span class="md-list-item-text">Jogos</span>
             </md-list-item>
           </router-link>
 
           <router-link tag="a" :to="{ name: 'addboardgame' }">
-            <md-list-item>
+            <md-list-item @click="menuVisible = false">
               <md-icon>add_box</md-icon>
               <span class="md-list-item-text">Adicionar Jogo</span>
             </md-list-item>
           </router-link>
-
-          <md-list-item>
-            <md-icon>favorite</md-icon>
-            <span class="md-list-item-text">Sobre nós</span>
-          </md-list-item>
         </md-list>
       </md-app-drawer>
 
@@ -48,11 +43,18 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "PageContainer",
   data: () => ({
     menuVisible: false
-  })
+  }),
+  methods: {
+    ...mapActions(["getBoardgames"])
+  },
+  created() {
+    this.getBoardgames();
+  }
 };
 </script>
 

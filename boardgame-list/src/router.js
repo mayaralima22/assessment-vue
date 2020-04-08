@@ -3,8 +3,7 @@ import VueRouter from 'vue-router';
 import BoardgamePage from './components/BoardgamePage';
 import AddBoardgame from './components/AddBoardgame';
 import DetailPage from './components/DetailPage';
-
-
+import EditBoardgamePage from './components/EditBoardgamePage';
 
 Vue.use(VueRouter);
 
@@ -28,6 +27,11 @@ export default new VueRouter({
 			path: '/boardgame-details/:gameId',
 			name: 'boardgame-details',
 			component: DetailPage
+		},
+		{
+			path: '/boardgame/:gameId/edit',
+			name: 'edit-boardgame',
+			component: EditBoardgamePage
 		}
 	]
 });
